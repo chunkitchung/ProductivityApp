@@ -46,14 +46,14 @@ public class DashboardFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 635);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(112, 128, 144));
-		contentPane.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
+		contentPane.setBackground(new Color(255, 255, 204));
+		contentPane.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel MenuPanel = new JPanel();
-		MenuPanel.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
-		MenuPanel.setBackground(Color.DARK_GRAY);
+		MenuPanel.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
+		MenuPanel.setBackground(new Color(255, 255, 255));
 		MenuPanel.setBounds(0, 0, 161, 596);
 		contentPane.add(MenuPanel);
 		MenuPanel.setLayout(null);
@@ -64,5 +64,78 @@ public class DashboardFrame extends JFrame {
 		lblLogo.setBounds(0, 11, 161, 82);
 		lblLogo.setIcon(new ImageIcon(img_logo));
 		MenuPanel.add(lblLogo);
+		
+		JPanel panelHome = new JPanel();
+		panelHome.setBorder(null);
+		panelHome.setBackground(new Color(255, 255, 255));
+		panelHome.setBounds(10, 104, 141, 52);
+		MenuPanel.add(panelHome);
+		panelHome.setLayout(null);
+		
+		JLabel lblHome = new JLabel("HOME");
+		lblHome.setForeground(new Color(102, 51, 0));
+		lblHome.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		lblHome.setBackground(new Color(255, 255, 255));
+		lblHome.setBounds(40, 11, 99, 30);
+		panelHome.add(lblHome);
+		
+		JLabel lblHomeLogo = new JLabel("");
+		lblHomeLogo.setBackground(new Color(255, 255, 255));
+		lblHomeLogo.setBounds(0, 0, 40, 52);
+		panelHome.add(lblHomeLogo);
+		
+		JPanel panelPomodoro = new JPanel();
+		panelPomodoro.setBorder(null);
+		panelPomodoro.setBackground(new Color(255, 255, 255));
+		panelPomodoro.setBounds(10, 167, 141, 52);
+		MenuPanel.add(panelPomodoro);
+		panelPomodoro.setLayout(null);
+		
+		JLabel lblPomodoro = new JLabel("POMODORO");
+		lblPomodoro.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		lblPomodoro.setForeground(new Color(102, 51, 0));
+		lblPomodoro.setBounds(40, 11, 99, 30);
+		panelPomodoro.add(lblPomodoro);
+		
+		JLabel lblPomodoroLogo = new JLabel("");
+		lblPomodoroLogo.setBackground(Color.WHITE);
+		lblPomodoroLogo.setBounds(0, 0, 40, 52);
+		panelPomodoro.add(lblPomodoroLogo);
+		
+		JPanel panelTasks = new JPanel();
+		panelTasks.setBorder(null);
+		panelTasks.setBackground(new Color(255, 255, 255));
+		panelTasks.setBounds(10, 230, 141, 52);
+		MenuPanel.add(panelTasks);
+		panelTasks.setLayout(null);
+		
+		JLabel lblTasks = new JLabel("TASKS");
+		lblTasks.setForeground(new Color(102, 51, 0));
+		lblTasks.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		lblTasks.setBounds(40, 11, 100, 30);
+		panelTasks.add(lblTasks);
+		
+		JLabel lblTasksLogo = new JLabel("");
+		lblTasksLogo.setBackground(Color.WHITE);
+		lblTasksLogo.setBounds(0, 0, 40, 52);
+		panelTasks.add(lblTasksLogo);
+		
+		JPanel panelCalendar = new JPanel();
+		panelCalendar.setBorder(null);
+		panelCalendar.setBackground(new Color(255, 255, 255));
+		panelCalendar.setBounds(10, 293, 141, 52);
+		MenuPanel.add(panelCalendar);
+		panelCalendar.setLayout(null);
+		
+		JLabel lblCalendar = new JLabel("CALENDAR");
+		lblCalendar.setForeground(new Color(102, 51, 0));
+		lblCalendar.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		lblCalendar.setBounds(40, 11, 100, 30);
+		panelCalendar.add(lblCalendar);
+		
+		JLabel lblCalendarLogo = new JLabel("");
+		lblCalendarLogo.setBackground(Color.WHITE);
+		lblCalendarLogo.setBounds(0, 0, 40, 52);
+		panelCalendar.add(lblCalendarLogo);
 	}
 }
