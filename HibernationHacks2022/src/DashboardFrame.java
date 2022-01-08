@@ -10,19 +10,32 @@ import javax.swing.border.LineBorder;
 import java.awt.Font;
 import java.awt.*;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class DashboardFrame extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPanel;
 	
 	private Image img_logo= new ImageIcon(DashboardFrame.class.getResource("Images/logo.jpg")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image img_logoHome= new ImageIcon(DashboardFrame.class.getResource("Images/Home.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
 	private Image img_logoCal= new ImageIcon(DashboardFrame.class.getResource("Images/Calendar.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
 	private Image img_logoPom= new ImageIcon(DashboardFrame.class.getResource("Images/Pomodoro.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
 	private Image img_logoTasks= new ImageIcon(DashboardFrame.class.getResource("Images/Tasks.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
-
+	//Switch to these panels when clicked
+	private PanelHome panelHomeE;
+	private PanelPomodoro panelPomodoroE;
+	private PanelTasks panelTasksE;
+	private PanelCalendar panelCalendarE; 
+	
+	//JPanel "Buttons"
+	private JPanel panelHome;
+	private JPanel panelPomodoro;
+	private JPanel panelTasks;
+	private JPanel panelCalendar;
 	/**
 	 * Launch the application.
 	 */
@@ -50,17 +63,22 @@ public class DashboardFrame extends JFrame {
 		setAutoRequestFocus(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 635);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 204));
-		contentPane.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPanel = new JPanel();
+		contentPanel.setBackground(new Color(255, 255, 204));
+		contentPanel.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
+		
+		panelHomeE= new PanelHome();
+		panelCalendarE= new PanelCalendar();
+		panelPomodoroE= new PanelPomodoro();
+		panelTasksE= new PanelTasks();
 		
 		JPanel MenuPanel = new JPanel();
 		MenuPanel.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
 		MenuPanel.setBackground(new Color(255, 255, 255));
 		MenuPanel.setBounds(0, 0, 161, 596);
-		contentPane.add(MenuPanel);
+		contentPanel.add(MenuPanel);
 		MenuPanel.setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
@@ -70,7 +88,14 @@ public class DashboardFrame extends JFrame {
 		lblLogo.setIcon(new ImageIcon(img_logo));
 		MenuPanel.add(lblLogo);
 		
-		JPanel panelHome = new JPanel();
+		panelHome = new JPanel();
+		panelHome.addMouseListener(new PanelButtonMouseAdapter(panelHome) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(panelHomeE);
+			}
+			
+		});
 		panelHome.setBorder(null);
 		panelHome.setBackground(new Color(255, 255, 255));
 		panelHome.setBounds(10, 104, 141, 52);
@@ -90,7 +115,14 @@ public class DashboardFrame extends JFrame {
 		lblHomeLogo.setIcon(new ImageIcon(img_logoHome));
 		panelHome.add(lblHomeLogo);
 		
-		JPanel panelPomodoro = new JPanel();
+		panelPomodoro = new JPanel();
+		panelPomodoro.addMouseListener(new PanelButtonMouseAdapter(panelPomodoro) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(panelPomodoroE);
+			}
+			
+		});
 		panelPomodoro.setBorder(null);
 		panelPomodoro.setBackground(new Color(255, 255, 255));
 		panelPomodoro.setBounds(10, 167, 141, 52);
@@ -109,7 +141,14 @@ public class DashboardFrame extends JFrame {
 		lblPomodoroLogo.setIcon(new ImageIcon(img_logoPom));
 		panelPomodoro.add(lblPomodoroLogo);
 		
-		JPanel panelTasks = new JPanel();
+		panelTasks = new JPanel();
+		panelTasks.addMouseListener(new PanelButtonMouseAdapter(panelTasks) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(panelTasksE);
+			}
+			
+		});
 		panelTasks.setBorder(null);
 		panelTasks.setBackground(new Color(255, 255, 255));
 		panelTasks.setBounds(10, 230, 141, 52);
@@ -128,7 +167,14 @@ public class DashboardFrame extends JFrame {
 		lblTasksLogo.setIcon(new ImageIcon(img_logoTasks));
 		panelTasks.add(lblTasksLogo);
 		
-		JPanel panelCalendar = new JPanel();
+		panelCalendar = new JPanel();
+		panelCalendar.addMouseListener(new PanelButtonMouseAdapter(panelCalendar) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(panelCalendarE);
+			}
+			
+		});
 		panelCalendar.setBorder(null);
 		panelCalendar.setBackground(new Color(255, 255, 255));
 		panelCalendar.setBounds(10, 293, 141, 52);
@@ -146,5 +192,50 @@ public class DashboardFrame extends JFrame {
 		lblCalendarLogo.setBounds(5, 0, 40, 52);
 		lblCalendarLogo.setIcon(new ImageIcon(img_logoCal));
 		panelCalendar.add(lblCalendarLogo);
+		
+		JPanel panelMainContent = new JPanel();
+		panelMainContent.setBounds(171, 11, 505, 574);
+		contentPanel.add(panelMainContent);
+		panelMainContent.setLayout(null);
+		
+		panelMainContent.add(panelHomeE);
+		panelMainContent.add(panelTasksE);
+		panelMainContent.add(panelCalendarE);
+		panelMainContent.add(panelPomodoroE); 
+		
+		menuClicked(panelHomeE);
+
+	}
+	public void menuClicked(JPanel selectedPanel) {
+
+		panelHomeE.setVisible(false);
+		panelPomodoroE.setVisible(false);
+		panelCalendarE.setVisible(false);
+		panelTasksE.setVisible(false);
+		
+		selectedPanel.setVisible(true);
+
+	}
+	private class PanelButtonMouseAdapter extends MouseAdapter{
+		JPanel panel;
+		public PanelButtonMouseAdapter(JPanel panel) {
+			this.panel=panel;
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			panel.setBackground(new Color(240,240,240));
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			panel.setBackground(new Color(255,255,255));
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			panel.setBackground(new Color(210,210,210));
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			panel.setBackground(new Color(240,240,240));
+		}
 	}
 }
