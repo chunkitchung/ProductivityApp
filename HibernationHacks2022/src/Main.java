@@ -1,4 +1,3 @@
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -106,21 +106,31 @@ public class Main implements ActionListener {
 		deleteTaskButton.setBackground(new Color(255, 204, 255));
 		deleteTaskButton.setForeground(new Color(102, 102, 102));
 		deleteTaskButton.setFont(new Font("Goudy Old Style", Font.PLAIN, 15));
-		addTaskButton.addActionListener(this);
+		deleteTaskButton.addActionListener(this);
 		frame.getContentPane().add(deleteTaskButton);
 
 		frame.getContentPane().setFocusable(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		String filePath = "src\\tasks.txt";
+		BufferedWriter fileWriter = null;
+		try {
+			fileWriter = new BufferedWriter(new FileWriter(filePath, true));
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 
 		if (e.getSource() == addTaskButton) {
-			String filePath = "src\\tasks.txt";
+
 			try {
-				FileWriter fileWriter = new FileWriter(filePath);
-				fileWriter.write(task.getText() + "\n");
+
+				fileWriter.write(task.getText());
+				fileWriter.newLine();
 				fileWriter.close();
 				list.append(task.getText());
+				list.append("\n");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
