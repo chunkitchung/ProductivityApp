@@ -206,6 +206,7 @@ public class DashboardFrame extends JFrame {
 		menuClicked(panelHomeE);
 
 	}
+	//replace panels onclick
 	public void menuClicked(JPanel selectedPanel) {
 
 		panelHomeE.setVisible(false);
