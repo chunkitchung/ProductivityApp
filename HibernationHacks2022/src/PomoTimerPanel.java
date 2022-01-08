@@ -31,26 +31,26 @@ public class PomoTimerPanel extends JPanel {
 		timer.setFont(new Font("Tahoma", Font.PLAIN, 46));
 		timer.setHorizontalAlignment(SwingConstants.CENTER);
 		timer.setBorder(new LineBorder(new Color(0, 0, 0)));
-		timer.setBounds(103, 29, 240, 52);
+		timer.setBounds(106, 88, 240, 52);
 		add(timer);
 		
-		JButton btnNewButton = new JButton("START");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnStart = new JButton("Start");
+		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				timeCount.start();
 			}
 		});
-		btnNewButton.setBounds(113, 92, 78, 23);
-		add(btnNewButton);
+		btnStart.setBounds(106, 151, 70, 23);
+		add(btnStart);
 		
-		JButton btnNewButton_1 = new JButton("stop");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnStop = new JButton("Stop");
+		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				timeCount.stop();
 			}
 		});
-		btnNewButton_1.setBounds(235, 92, 89, 23);
-		add(btnNewButton_1);
+		btnStop.setBounds(191, 151, 70, 23);
+		add(btnStop);
 		
 		//initial time and timer
 		second = 0;
@@ -78,6 +78,19 @@ public class PomoTimerPanel extends JPanel {
 				}
 			}
 		});
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				second = 0;
+				minute = 25;
+				timer.setText("25:00");
+				timeCount.stop();
+			}
+		});
+		btnReset.setBounds(276, 151, 70, 23);
+		add(btnReset);
 				
 	}	
 }
