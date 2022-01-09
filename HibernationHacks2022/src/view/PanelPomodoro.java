@@ -9,6 +9,10 @@ import java.util.Date;
 import javax.swing.border.LineBorder;
 import javax.swing.*;
 
+import model.User;
+/*
+ * Pomodoro Timer panel
+ */
 public class PanelPomodoro extends JPanel {
 	Timer timeCount;	
 	JLabel timer;
@@ -17,11 +21,14 @@ public class PanelPomodoro extends JPanel {
 	String ddSecond;
 	String ddMinute;
 	DecimalFormat dFormat;
+	User user;
+	boolean breakNeeded;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelPomodoro() {
+	public PanelPomodoro(User user) {
+		this.user = user;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setForeground(new Color(102, 51, 0));
 		setBorder(null);
@@ -36,6 +43,7 @@ public class PanelPomodoro extends JPanel {
 		timer.setBounds(94, 206, 312, 103);
 		add(timer);
 		
+		//start button
 		JButton btnStart = new JButton("Start");
 		btnStart.setForeground(Color.WHITE);
 		btnStart.setBackground(new Color(141, 110, 99));
@@ -44,9 +52,10 @@ public class PanelPomodoro extends JPanel {
 				timeCount.start();
 			}
 		});
-		btnStart.setBounds(125, 320, 70, 23);
+		btnStart.setBounds(45, 323, 70, 23);
 		add(btnStart);
 		
+		//stop button
 		JButton btnStop = new JButton("Stop");
 		btnStop.setForeground(Color.WHITE);
 		btnStop.setBackground(new Color(141, 110, 99));
@@ -55,7 +64,7 @@ public class PanelPomodoro extends JPanel {
 				timeCount.stop();
 			}
 		});
-		btnStop.setBounds(210, 320, 70, 23);
+		btnStop.setBounds(160, 323, 70, 23);
 		add(btnStop);
 		
 		//initial time and timer
@@ -63,10 +72,13 @@ public class PanelPomodoro extends JPanel {
 		minute = 25;
 		timer.setText("25:00");
 		dFormat = new DecimalFormat("00");
+		breakNeeded = true;
+		//initializes timer
 		
-		//initialize timer
+		//calls actionListener every second
 		this.timeCount = new Timer(1000, new ActionListener() {
 			
+			//adjusts the timer
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				second--;
@@ -80,11 +92,25 @@ public class PanelPomodoro extends JPanel {
 				timer.setText(ddMinute + ":" + ddSecond);
 				
 				if(minute == 0 && second == 0) {
+					
 					timeCount.stop();
+					
+					if(breakNeeded) {
+						breakTimer();
+						user.addPomo();
+						breakNeeded = false;
+					}else {
+						second = 0;
+						minute = 25;
+						timer.setText("25:00");
+						dFormat = new DecimalFormat("00");
+						breakNeeded = true;
+					}
 				}
 			}
 		});
 		
+		//reset button
 		JButton btnReset = new JButton("Reset");
 		btnReset.setForeground(Color.WHITE);
 		btnReset.setBackground(new Color(141, 110, 99));
@@ -97,8 +123,29 @@ public class PanelPomodoro extends JPanel {
 				timeCount.stop();
 			}
 		});
-		btnReset.setBounds(295, 320, 70, 23);
+		btnReset.setBounds(275, 323, 70, 23);
 		add(btnReset);
+		
+		JButton btnSkip = new JButton("Skip");
+		btnSkip.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				second = 2;
+				minute = 0;
+			}
+		});
+		btnStart.setBackground(new Color(141, 110, 99));
+		btnSkip.setBounds(390, 323, 70, 23);
+		add(btnSkip);
 
 	}
+	
+	public void breakTimer() {
+		second = 0;
+		minute = 5;
+		ddSecond = dFormat.format(second);
+		ddMinute = dFormat.format(minute);
+		timer.setText(ddMinute + ":" + ddSecond);
+	}
+	
 }

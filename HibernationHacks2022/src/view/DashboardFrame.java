@@ -17,8 +17,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class DashboardFrame extends JFrame {
+import model.User;
 
+public class DashboardFrame extends JFrame {
+	private User user;
 	private JPanel contentPanel;
 	
 	private Image img_logo= new ImageIcon(DashboardFrame.class.getResource("../Images/logo.jpg")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
@@ -40,23 +42,23 @@ public class DashboardFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DashboardFrame frame = new DashboardFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public void run() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public DashboardFrame() {
+	public DashboardFrame(User user) {
+		this.user = user;
 		setForeground(Color.WHITE);
 		setTitle("Productivity App");
 		setFont(new Font("High Tower Text", Font.PLAIN, 14));
@@ -70,9 +72,10 @@ public class DashboardFrame extends JFrame {
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 		
-		panelHomeE= new PanelHome();
+		
+		panelHomeE= new PanelHome(user);
 		panelCalendarE= new PanelCalendar();
-		panelPomodoroE= new PanelPomodoro();
+		panelPomodoroE= new PanelPomodoro(user);
 		panelTasksE= new PanelTasks();
 		
 		JPanel MenuPanel = new JPanel();

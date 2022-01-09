@@ -8,12 +8,21 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Font;
 
-public class PanelHome extends JPanel {
+import model.User;
 
+public class PanelHome extends JPanel {
+	JLabel dailyPomo;
+	JLabel dailyTasks;
+	JLabel dailyStudy;
+	JLabel totalTasks;
+	JLabel totalPomo;
+	User user;
+	
 	/**
 	 * Home Panel
 	 */
-	public PanelHome() {
+	public PanelHome(User user) {
+		this.user = user;
 		setForeground(new Color(102, 51, 0));
 		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setBackground(new Color(255, 255, 204));
@@ -21,8 +30,10 @@ public class PanelHome extends JPanel {
 		setBounds(0,0,505,574);
 		setLayout(null);
 		
-		JPanel dailyPomo = new JPanel();
-		dailyPomo.setFont(new Font("Goudy Old Style", Font.PLAIN, 29));
+		dailyPomo = new JLabel();
+		dailyPomo.setHorizontalAlignment(SwingConstants.CENTER);
+		dailyPomo.setHorizontalTextPosition(SwingConstants.CENTER);
+		dailyPomo.setFont(new Font("Goudy Old Style", Font.PLAIN, 60));
 		dailyPomo.setBackground(new Color(255, 255, 204));
 		dailyPomo.setBounds(31, 33, 63, 60);
 		add(dailyPomo);
@@ -33,7 +44,9 @@ public class PanelHome extends JPanel {
 		txt1.setBounds(29, 98, 65, 34);
 		add(txt1);
 		
-		JPanel dailyTasks = new JPanel();
+		dailyTasks = new JLabel();
+		dailyTasks.setHorizontalAlignment(SwingConstants.CENTER);
+		dailyTasks.setFont(new Font("Goudy Old Style", Font.PLAIN, 60));
 		dailyTasks.setBackground(new Color(255, 255, 204));
 		dailyTasks.setBounds(125, 33, 63, 60);
 		add(dailyTasks);
@@ -44,7 +57,9 @@ public class PanelHome extends JPanel {
 		txt2.setBounds(125, 98, 65, 34);
 		add(txt2);
 		
-		JPanel dailyStudy = new JPanel();
+		dailyStudy = new JLabel();
+		dailyStudy.setHorizontalAlignment(SwingConstants.CENTER);
+		dailyStudy.setFont(new Font("Goudy Old Style", Font.PLAIN, 60));
 		dailyStudy.setBackground(new Color(255, 255, 204));
 		dailyStudy.setBounds(219, 33, 63, 60);
 		add(dailyStudy);
@@ -55,9 +70,10 @@ public class PanelHome extends JPanel {
 		txt3.setBounds(219, 98, 65, 34);
 		add(txt3);
 		
-		JPanel totalTasks = new JPanel();
+		totalTasks = new JLabel();
 		totalTasks.setBackground(new Color(255, 255, 204));
 		totalTasks.setBounds(407, 33, 63, 60);
+		totalTasks.setFont(new Font("Goudy Old Style", Font.PLAIN, 60));
 		add(totalTasks);
 		
 		JTextPane txt5 = new JTextPane();
@@ -66,9 +82,10 @@ public class PanelHome extends JPanel {
 		txt5.setBounds(407, 98, 65, 34);
 		add(txt5);
 		
-		JPanel totalPomo = new JPanel();
+		totalPomo = new JLabel();
 		totalPomo.setBackground(new Color(255, 255, 204));
 		totalPomo.setBounds(313, 33, 63, 60);
+		totalPomo.setFont(new Font("Goudy Old Style", Font.PLAIN, 60));
 		add(totalPomo);
 		
 		JTextPane txt4 = new JTextPane();
@@ -77,5 +94,16 @@ public class PanelHome extends JPanel {
 		txt4.setBounds(311, 98, 65, 34);
 		add(txt4);
 		setVisible(true);
+		
+		update();
+	}
+	
+	//Updates the label to represent the Users data
+	public void update() {
+		this.dailyPomo.setText(this.user.getDailyPomos() + "");
+		this.dailyTasks.setText(this.user.getDailyTasks() + "");
+		this.dailyStudy.setText(this.user.getStudyTime() + "");
+		this.totalPomo.setText(this.user.getTotalPomos() + "");
+		this.totalTasks.setText(this.user.getTotalTasks() + "");
 	}
 }
