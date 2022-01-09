@@ -34,6 +34,9 @@ public class DashboardFrame extends JFrame {
 	private PanelTasks panelTasksE;
 	private PanelCalendar panelCalendarE; 
 	
+	public PanelHome getPanelHomE() {
+		return panelHomeE;
+	}
 	//JPanel "Buttons"
 	private JPanel panelHome;
 	private JPanel panelPomodoro;

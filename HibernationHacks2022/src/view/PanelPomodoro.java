@@ -134,7 +134,8 @@ public class PanelPomodoro extends JPanel {
 				minute = 0;
 			}
 		});
-		btnStart.setBackground(new Color(141, 110, 99));
+		btnSkip.setForeground(Color.WHITE);
+		btnSkip.setBackground(new Color(141, 110, 99));
 		btnSkip.setBounds(390, 323, 70, 23);
 		add(btnSkip);
 

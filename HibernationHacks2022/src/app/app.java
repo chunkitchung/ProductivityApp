@@ -59,8 +59,14 @@ public class app {
 			
 		}
 		
+		
+		appUser.setDay(1);
+		//Reset daily values
+		appUser.startup();
+		
 		//Create View and Inject User
 		DashboardFrame dash = new DashboardFrame(appUser);
 		dash.setVisible(true);
+		appUser.attatch(dash.getPanelHomE());
 	}
 }
