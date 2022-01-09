@@ -155,6 +155,43 @@ public class PanelTasks extends JPanel {
 		del.setBounds(425, 391, 70, 22);
 		add(del);
 		
+		Button markComplete = new Button("Mark As Complete");
+		markComplete.setForeground(new Color(255, 255, 255));
+		markComplete.setBackground(new Color(141, 110, 99));
+		markComplete.setFont(new Font("Goudy Old Style", Font.PLAIN, 12));
+		markComplete.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String filePath = "src\\completedTasks.txt";
+				BufferedWriter fileWriter = null;
+				try {
+					fileWriter = new BufferedWriter(new FileWriter(filePath, true));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+				if (e.getSource() == markComplete) {
+					String taskCompleted = pendingList.getSelectedItem();
+					System.out.println("Task that was completed: " + taskCompleted);
+
+					try {
+
+						fileWriter.write(taskCompleted);
+						fileWriter.newLine();
+						fileWriter.close();
+						completedList.add(taskCompleted);
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+			}
+		});
+		markComplete.setBounds(347, 420, 148, 22);
+		add(markComplete);
 		setVisible(true);
 
 	}
