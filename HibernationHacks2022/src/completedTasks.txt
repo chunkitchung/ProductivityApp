@@ -1,8 +1,8 @@
-2
-6
-dadadsds
-new task
-5
-3
-new task
-fadfaf
+Study Chapter 2
+Schedule Winter Classes
+Watch Wednesday Lecture
+Prepare for Software Dev Mid-Term
+Finish homework questionsComplete CS HomeWork
+Submit assignment
+Finish Econ Homework
+Finish Homework

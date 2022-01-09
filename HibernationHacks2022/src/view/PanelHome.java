@@ -113,7 +113,7 @@ public class PanelHome extends JPanel implements Observer{
 		String study = "" + this.user.getStudyTime() ;
 		this.dailyPomo.setText(this.user.getDailyPomos() + "");
 		this.dailyTasks.setText(this.user.getDailyTasks() + "");
-		this.dailyStudy.setText("0.0");
+		this.dailyStudy.setText(this.user.getStudyTime() + "");
 		this.totalPomo.setText(this.user.getTotalPomos() + "");
 		this.totalTasks.setText(this.user.getTotalTasks() + "");
 	}
