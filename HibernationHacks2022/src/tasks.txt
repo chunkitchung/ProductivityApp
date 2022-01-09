@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 aaaaaa
 bbbb
 cccccc
@@ -50,3 +51,5 @@ fdsjkfljkdf
 fdfdfd
 Test
 dlakjdklajlkdaj
+=======
+>>>>>>> refs/remotes/origin/main
