@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class PanelTasks extends JPanel {
-
+private int pendingT,completedT;
 	/**
 	 * Create the panel.
 	 */
@@ -49,6 +49,24 @@ public class PanelTasks extends JPanel {
 		pendingList.setBackground(new Color(255, 255, 204));
 		pendingList.setForeground(new Color(0, 0, 0));
 		pendingList.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		File tasks= new File("src\\tasks.txt");
+		BufferedReader fr=null;
+		try {
+			fr= new BufferedReader(new FileReader(tasks));
+		}
+		catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			String currentLine;
+			while((currentLine=fr.readLine())!= null) {
+				pendingList.add(currentLine);
+			}
+			fr.close();
+		}
+		catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		tabbedPane.addTab("Pending", null, pendingList, null);
 		tabbedPane.setForegroundAt(0, new Color(102, 51, 0));
 		tabbedPane.setBackgroundAt(0, UIManager.getColor("Button.background"));
@@ -57,6 +75,23 @@ public class PanelTasks extends JPanel {
 		completedList.setBackground(new Color(255, 255, 204));
 		completedList.setForeground(new Color(0, 0, 0));
 		completedList.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
+		File completedTasks= new File("src\\completedTasks.txt");
+		try {
+			fr= new BufferedReader(new FileReader(completedTasks));
+		}
+		catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			String currentLine;
+			while((currentLine=fr.readLine())!= null) {
+				completedList.add(currentLine);
+			}
+			fr.close();
+		}
+		catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		tabbedPane.addTab("Completed", null, completedList, null);
 		tabbedPane.setForegroundAt(1, new Color(102, 51, 0));
 		tabbedPane.setBackgroundAt(1, UIManager.getColor("Button.background"));
@@ -98,16 +133,15 @@ public class PanelTasks extends JPanel {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-
 				if (e.getSource() == add) {
-
 					try {
-						
 						fileWriter.write(input.getText());
 						fileWriter.newLine();
 						fileWriter.close();
 						pendingList.add(input.getText());
-						
+						System.out.println("task added: "+input.getText());
+
+						input.setText("");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -126,32 +160,19 @@ public class PanelTasks extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				File tasksFile = new File("src\\tasks.txt");
-				File tmpFile = new File("tmp.txt");
 				BufferedReader fileReader = null;
-				BufferedWriter fileWriter = null;
 				try {
-					fileWriter = new BufferedWriter(new FileWriter(tmpFile));
 					fileReader = new BufferedReader(new FileReader(tasksFile));
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-
 				if (e.getSource() == del) {
 					try {
 						String lineToRemove=pendingList.getSelectedItem();
-						String currentLine;
-						while((currentLine = fileReader.readLine()) != null) {
-						    if(currentLine.equals(lineToRemove)) continue;
-						    fileWriter.write(currentLine + System.getProperty("line.separator"));
-						}
-						fileWriter.close(); 
-						fileReader.close(); 
+						removeLine(fileReader,tasksFile,lineToRemove);
 						pendingList.remove(lineToRemove);
-						tasksFile.delete();
-						boolean successful= tmpFile.renameTo(new File("src\\tasks.txt"));
-						System.out.println(successful);
-						
+						System.out.println("task deleted: "+lineToRemove);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -183,13 +204,17 @@ public class PanelTasks extends JPanel {
 					System.out.println("Task that was completed: " + taskCompleted);
 
 					try {
-						String lineToRemove = pendingList.getSelectedItem();
 
 						fileWriter.write(taskCompleted);
 						fileWriter.newLine();
 						fileWriter.close();
 						completedList.add(taskCompleted);
-						pendingList.remove(lineToRemove);
+						
+						File tasksFile = new File("src\\tasks.txt");
+						BufferedReader fileReader = new BufferedReader(new FileReader(tasksFile));
+						removeLine(fileReader,tasksFile,taskCompleted);
+
+						pendingList.remove(taskCompleted);
 
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -202,6 +227,30 @@ public class PanelTasks extends JPanel {
 		markComplete.setBounds(347, 420, 148, 22);
 		add(markComplete);
 		setVisible(true);
-
+		pendingT= pendingList.getItemCount();
+		completedT=completedList.getItemCount();
 	}
+	public static void removeLine(BufferedReader br , File f,  String Line) throws IOException{
+	    File temp = new File("temp.txt");
+	    BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+	    String removeID = Line;
+	    String currentLine;
+	    while((currentLine = br.readLine()) != null){
+	    	 if(currentLine.equals(Line)) continue;
+	    	 bw.write(currentLine + System.getProperty("line.separator"));
+
+	    }
+	    bw.close();
+	    br.close();
+	    boolean delete = f.delete();
+	    boolean b = temp.renameTo(f);
+	    System.out.println("Delete: "+delete+" renamed: "+b);
+	}
+	public int getPending() {
+		return pendingT;
+	}
+	public int getCompleted(){
+		return completedT;
+	}
+	
 }
