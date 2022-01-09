@@ -21,11 +21,11 @@ public class DashboardFrame extends JFrame {
 
 	private JPanel contentPanel;
 	
-	private Image img_logo= new ImageIcon(DashboardFrame.class.getResource("Images/logo.jpg")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
-	private Image img_logoHome= new ImageIcon(DashboardFrame.class.getResource("Images/Home.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
-	private Image img_logoCal= new ImageIcon(DashboardFrame.class.getResource("Images/Calendar.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
-	private Image img_logoPom= new ImageIcon(DashboardFrame.class.getResource("Images/Pomodoro.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
-	private Image img_logoTasks= new ImageIcon(DashboardFrame.class.getResource("Images/Tasks.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
+	private Image img_logo= new ImageIcon(DashboardFrame.class.getResource("../Images/logo.jpg")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
+	private Image img_logoHome= new ImageIcon(DashboardFrame.class.getResource("../Images/Home.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
+	private Image img_logoCal= new ImageIcon(DashboardFrame.class.getResource("../Images/Calendar.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
+	private Image img_logoPom= new ImageIcon(DashboardFrame.class.getResource("../Images/Pomodoro.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
+	private Image img_logoTasks= new ImageIcon(DashboardFrame.class.getResource("../Images/Tasks.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH);
 	//Switch to these panels when clicked
 	private PanelHome panelHomeE;
 	private PanelPomodoro panelPomodoroE;
