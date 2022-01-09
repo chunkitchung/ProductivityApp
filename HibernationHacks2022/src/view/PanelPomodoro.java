@@ -1,18 +1,15 @@
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
-
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+package view;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.text.*;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PomoTimerPanel extends JPanel {
+import javax.swing.border.LineBorder;
+import javax.swing.*;
+
+public class PanelPomodoro extends JPanel {
 	Timer timeCount;	
 	JLabel timer;
 	int second;
@@ -20,36 +17,45 @@ public class PomoTimerPanel extends JPanel {
 	String ddSecond;
 	String ddMinute;
 	DecimalFormat dFormat;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PomoTimerPanel() {
-		setBorder(new LineBorder(Color.DARK_GRAY));
+	public PanelPomodoro() {
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setForeground(new Color(102, 51, 0));
+		setBorder(null);
+		setBackground(new Color(255, 255, 204));
+		setBounds(0,0,505,574);
 		setLayout(null);
 		
 		timer = new JLabel("11:59:59");
-		timer.setFont(new Font("Tahoma", Font.PLAIN, 46));
+		timer.setFont(new Font("Tahoma", Font.PLAIN, 82));
 		timer.setHorizontalAlignment(SwingConstants.CENTER);
 		timer.setBorder(new LineBorder(new Color(0, 0, 0)));
-		timer.setBounds(106, 88, 240, 52);
+		timer.setBounds(94, 206, 312, 103);
 		add(timer);
 		
 		JButton btnStart = new JButton("Start");
+		btnStart.setForeground(Color.WHITE);
+		btnStart.setBackground(new Color(141, 110, 99));
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				timeCount.start();
 			}
 		});
-		btnStart.setBounds(106, 151, 70, 23);
+		btnStart.setBounds(125, 320, 70, 23);
 		add(btnStart);
 		
 		JButton btnStop = new JButton("Stop");
+		btnStop.setForeground(Color.WHITE);
+		btnStop.setBackground(new Color(141, 110, 99));
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				timeCount.stop();
 			}
 		});
-		btnStop.setBounds(191, 151, 70, 23);
+		btnStop.setBounds(210, 320, 70, 23);
 		add(btnStop);
 		
 		//initial time and timer
@@ -80,6 +86,8 @@ public class PomoTimerPanel extends JPanel {
 		});
 		
 		JButton btnReset = new JButton("Reset");
+		btnReset.setForeground(Color.WHITE);
+		btnReset.setBackground(new Color(141, 110, 99));
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -89,8 +97,8 @@ public class PomoTimerPanel extends JPanel {
 				timeCount.stop();
 			}
 		});
-		btnReset.setBounds(276, 151, 70, 23);
+		btnReset.setBounds(295, 320, 70, 23);
 		add(btnReset);
-				
-	}	
+
+	}
 }

@@ -1,14 +1,19 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
+package view;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
+import java.awt.Font;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.awt.event.ActionEvent;
+import java.text.*;
 import java.util.Date;
 
-import javax.swing.border.LineBorder;
-import javax.swing.*;
-
-public class PanelPomodoro extends JPanel {
+public class PomoTimerPanel extends JPanel {
 	Timer timeCount;	
 	JLabel timer;
 	int second;
@@ -16,23 +21,18 @@ public class PanelPomodoro extends JPanel {
 	String ddSecond;
 	String ddMinute;
 	DecimalFormat dFormat;
-	
 	/**
 	 * Create the panel.
 	 */
-	public PanelPomodoro() {
-		setAlignmentX(Component.LEFT_ALIGNMENT);
-		setForeground(new Color(102, 51, 0));
-		setBorder(null);
-		setBackground(new Color(255, 255, 204));
-		setBounds(0,0,505,574);
+	public PomoTimerPanel() {
+		setBorder(new LineBorder(Color.DARK_GRAY));
 		setLayout(null);
 		
 		timer = new JLabel("11:59:59");
-		timer.setFont(new Font("Tahoma", Font.PLAIN, 82));
+		timer.setFont(new Font("Tahoma", Font.PLAIN, 46));
 		timer.setHorizontalAlignment(SwingConstants.CENTER);
 		timer.setBorder(new LineBorder(new Color(0, 0, 0)));
-		timer.setBounds(94, 206, 312, 103);
+		timer.setBounds(106, 88, 240, 52);
 		add(timer);
 		
 		JButton btnStart = new JButton("Start");
@@ -41,7 +41,7 @@ public class PanelPomodoro extends JPanel {
 				timeCount.start();
 			}
 		});
-		btnStart.setBounds(125, 320, 70, 23);
+		btnStart.setBounds(106, 151, 70, 23);
 		add(btnStart);
 		
 		JButton btnStop = new JButton("Stop");
@@ -50,7 +50,7 @@ public class PanelPomodoro extends JPanel {
 				timeCount.stop();
 			}
 		});
-		btnStop.setBounds(210, 320, 70, 23);
+		btnStop.setBounds(191, 151, 70, 23);
 		add(btnStop);
 		
 		//initial time and timer
@@ -90,9 +90,8 @@ public class PanelPomodoro extends JPanel {
 				timeCount.stop();
 			}
 		});
-		btnReset.setBounds(295, 320, 70, 23);
+		btnReset.setBounds(276, 151, 70, 23);
 		add(btnReset);
-
-	}
-
+				
+	}	
 }
