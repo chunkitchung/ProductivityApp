@@ -22,7 +22,7 @@ public class PanelCalendar extends JPanel {
 
 	
 		setBounds(0,0,505,574);
-
+		setBackground(new Color(255, 255, 204));
 		// Create controls
 		lblMonth = new JLabel("January");
 		lblYear = new JLabel("Change year:");
@@ -40,6 +40,7 @@ public class PanelCalendar extends JPanel {
 
 		// Set border
 		pnlCalendar.setBorder(BorderFactory.createTitledBorder("Calendar"));
+		pnlCalendar.setBackground(new Color(255, 255, 204));
 
 		// Register action listeners
 		btnPrev.addActionListener(new btnPrev_Action());
