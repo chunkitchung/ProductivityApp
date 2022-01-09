@@ -12,10 +12,13 @@ import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PanelTasks extends JPanel {
 
@@ -58,10 +61,27 @@ public class PanelTasks extends JPanel {
 		tabbedPane.setBackgroundAt(1, UIManager.getColor("Button.background"));
 		
 		TextField input = new TextField();
-		input.setText("Enter your task..");
+
+		//input.setText("Enter your task..");
 		input.setForeground(new Color(102, 51, 0));
 		input.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
 		input.setBounds(10, 391, 325, 22);
+		input.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(input.getText().equals(""))
+				{
+					input.setText("Enter your task..");
+				}
+			}
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(input.getText().equals("Enter your task.."))
+				{
+					input.setText("");
+				}
+			}
+		});
 		add(input);
 		
 		Button add = new Button("Add");
@@ -102,14 +122,23 @@ public class PanelTasks extends JPanel {
 		del.setBackground(new Color(141, 110, 99));
 		del.setForeground(new Color(255, 255, 255));
 		del.setFont(new Font("Goudy Old Style", Font.PLAIN, 12));
+//		File inputFile = new File("myFile.txt");
+//		File tempFile = new File("myTempFile.txt");
+//
+//		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+//		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 		del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = "src\\tasks.txt";
+//				String filePath = "src\\tasks.txt";
+//				String tmpFilePath = "src\\tmp.txt";
+				
+				File tasksFile = new File("src\\tasks.txt");
+				File tmpFile = new File("tmp.txt");
 				BufferedReader fileReader = null;
 				BufferedWriter fileWriter = null;
 				try {
-					fileWriter = new BufferedWriter(new FileWriter(filePath, true));
-					fileReader = new BufferedReader(new FileReader(filePath));
+					fileWriter = new BufferedWriter(new FileWriter(tmpFile));
+					fileReader = new BufferedReader(new FileReader(tasksFile));
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -117,32 +146,22 @@ public class PanelTasks extends JPanel {
 
 				if (e.getSource() == del) {
 
-					
-//					String lineToRemove = "bbb";
-//					String currentLine;
-//
-//					while((currentLine = reader.readLine()) != null) {
-//					    // trim newline when comparing with lineToRemove
-//					    String trimmedLine = currentLine.trim();
-//					    if(trimmedLine.equals(lineToRemove)) continue;
-//					    writer.write(currentLine + System.getProperty("line.separator"));
-//					}
-//					writer.close(); 
-//					reader.close(); 
-//					boolean successful = tempFile.renameTo(inputFile);
-//					
+		
 					try {
 						String lineToRemove=pendingList.getSelectedItem();
 						String currentLine;
 						while((currentLine = fileReader.readLine()) != null) {
 						    // trim newline when comparing with lineToRemove
-						    String trimmedLine = currentLine.trim();
-						    if(trimmedLine.equals(lineToRemove)) continue;
+						   // String trimmedLine = currentLine.trim();
+						    if(currentLine.equals(lineToRemove)) continue;
 						    fileWriter.write(currentLine + System.getProperty("line.separator"));
 						}
 						fileWriter.close(); 
 						fileReader.close(); 
 						pendingList.remove(lineToRemove);
+						tasksFile.delete();
+						boolean successful= tmpFile.renameTo(new File("src\\tasks.txt"));
+						System.out.println(successful);
 						
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -154,7 +173,15 @@ public class PanelTasks extends JPanel {
 		del.setBounds(425, 391, 70, 22);
 		add(del);
 		
+		Button markAsComplete = new Button("Mark as complete");
+		markAsComplete.setForeground(Color.WHITE);
+		markAsComplete.setFont(new Font("Goudy Old Style", Font.PLAIN, 12));
+		markAsComplete.setBackground(new Color(141, 110, 99));
+		markAsComplete.setBounds(347, 419, 148, 22);
+		add(markAsComplete);
+		
 		setVisible(true);
 
 	}
+	
 }
