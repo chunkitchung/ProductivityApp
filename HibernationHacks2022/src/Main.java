@@ -84,7 +84,7 @@ public class Main implements ActionListener {
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(45, 100, 600, 300);
-		frame.getContentPane().add(list);
+		//frame.getContentPane().add(list);
 		frame.getContentPane().add(scrollPane);
 
 		task = new JTextField();
