@@ -11,8 +11,11 @@ import java.awt.Button;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -63,6 +66,22 @@ public class PanelTasks extends JPanel {
 		input.setForeground(new Color(102, 51, 0));
 		input.setFont(new Font("Goudy Old Style", Font.PLAIN, 14));
 		input.setBounds(10, 391, 325, 22);
+		input.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(input.getText().equals(""))
+				{
+					input.setText("Enter your task..");
+				}
+			}
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(input.getText().equals("Enter your task.."))
+				{
+					input.setText("");
+				}
+			}
+		});
 		add(input);
 		
 		Button add = new Button("Add");
@@ -105,45 +124,33 @@ public class PanelTasks extends JPanel {
 		del.setFont(new Font("Goudy Old Style", Font.PLAIN, 12));
 		del.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filePath = "src\\tasks.txt";
+				
+				File tasksFile = new File("src\\tasks.txt");
+				File tmpFile = new File("tmp.txt");
 				BufferedReader fileReader = null;
 				BufferedWriter fileWriter = null;
 				try {
-					fileWriter = new BufferedWriter(new FileWriter(filePath, true));
-					fileReader = new BufferedReader(new FileReader(filePath));
+					fileWriter = new BufferedWriter(new FileWriter(tmpFile));
+					fileReader = new BufferedReader(new FileReader(tasksFile));
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 
 				if (e.getSource() == del) {
-
-					
-//					String lineToRemove = "bbb";
-//					String currentLine;
-//
-//					while((currentLine = reader.readLine()) != null) {
-//					    // trim newline when comparing with lineToRemove
-//					    String trimmedLine = currentLine.trim();
-//					    if(trimmedLine.equals(lineToRemove)) continue;
-//					    writer.write(currentLine + System.getProperty("line.separator"));
-//					}
-//					writer.close(); 
-//					reader.close(); 
-//					boolean successful = tempFile.renameTo(inputFile);
-//					
 					try {
 						String lineToRemove=pendingList.getSelectedItem();
 						String currentLine;
 						while((currentLine = fileReader.readLine()) != null) {
-						    // trim newline when comparing with lineToRemove
-						    String trimmedLine = currentLine.trim();
-						    if(trimmedLine.equals(lineToRemove)) continue;
+						    if(currentLine.equals(lineToRemove)) continue;
 						    fileWriter.write(currentLine + System.getProperty("line.separator"));
 						}
 						fileWriter.close(); 
 						fileReader.close(); 
 						pendingList.remove(lineToRemove);
+						tasksFile.delete();
+						boolean successful= tmpFile.renameTo(new File("src\\tasks.txt"));
+						System.out.println(successful);
 						
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
