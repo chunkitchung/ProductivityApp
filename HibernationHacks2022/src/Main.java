@@ -9,18 +9,20 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.awt.event.ActionEvent;
 
 public class Main implements ActionListener {
@@ -135,9 +137,48 @@ public class Main implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-//		else if (e.getSource() == deleteTaskButton) {
-//
+		} else if (e.getSource() == deleteTaskButton) {
+			
+			String deleteWord = task.getText();
+			System.out.println("Word to delete: " + deleteWord);
+
+			File file = new File("src\\tasks.txt");
+			File temp = null;
+			String charset = "UTF-8";
+			String delete = task.getText();
+
+			try {
+				temp = File.createTempFile("file", ".txt", file.getParentFile());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			BufferedReader reader = null;
+			PrintWriter writer = null;
+			try {
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
+				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
+
+			} catch (UnsupportedEncodingException | FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} finally {
+				try {
+					for (String line; (line = reader.readLine()) != null;) {
+						line = line.replace(delete, "");
+						writer.println(line);
+					}
+					reader.close();
+					writer.close();
+					
+					temp.renameTo(file);
+					file.delete();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
 //			int end = 0;
 //			try {
 //				end = list.getLineEndOffset(0);
@@ -147,9 +188,7 @@ public class Main implements ActionListener {
 //			}
 //			list.replaceRange("", 0, end);
 //
-//			String filePath = "src\\tasks.txt";
 //			try {
-//				FileWriter fileWriter = new FileWriter(filePath);
 //				fileWriter.write(task.getText() + "\n");
 //				fileWriter.close();
 //				list.append(task.getText());
@@ -157,7 +196,7 @@ public class Main implements ActionListener {
 //				// TODO Auto-generated catch block
 //				e1.printStackTrace();
 //			}
-//		}
+		}
 	}
 
 }
