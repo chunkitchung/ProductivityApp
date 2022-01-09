@@ -176,11 +176,13 @@ public class PanelTasks extends JPanel {
 					System.out.println("Task that was completed: " + taskCompleted);
 
 					try {
+						String lineToRemove = pendingList.getSelectedItem();
 
 						fileWriter.write(taskCompleted);
 						fileWriter.newLine();
 						fileWriter.close();
 						completedList.add(taskCompleted);
+						pendingList.remove(lineToRemove);
 
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
