@@ -79,7 +79,7 @@ public class DashboardFrame extends JFrame {
 		panelHomeE= new PanelHome(user);
 		panelCalendarE= new PanelCalendar();
 		panelPomodoroE= new PanelPomodoro(user);
-		panelTasksE= new PanelTasks();
+		panelTasksE= new PanelTasks(user);
 		
 		JPanel MenuPanel = new JPanel();
 		MenuPanel.setBorder(new LineBorder(new Color(102, 102, 102), 2, true));

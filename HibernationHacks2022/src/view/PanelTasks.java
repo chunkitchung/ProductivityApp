@@ -10,6 +10,9 @@ import java.awt.TextField;
 import java.awt.Button;
 import javax.swing.JButton;
 import javax.swing.UIManager;
+
+import model.User;
+
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -23,10 +26,12 @@ import java.awt.event.ActionEvent;
 
 public class PanelTasks extends JPanel {
 private int pendingT,completedT;
+private User user;
 	/**
 	 * Create the panel.
 	 */
-	public PanelTasks() {
+	public PanelTasks(User user) {
+		this.user = user;
 		setForeground(new Color(102, 51, 0));
 		setBorder(null);
 		setBackground(new Color(255, 255, 204));
@@ -209,6 +214,9 @@ private int pendingT,completedT;
 						fileWriter.newLine();
 						fileWriter.close();
 						completedList.add(taskCompleted);
+						
+						//Adds completed task to user statistics
+						user.addTask();
 						
 						File tasksFile = new File("src\\tasks.txt");
 						BufferedReader fileReader = new BufferedReader(new FileReader(tasksFile));

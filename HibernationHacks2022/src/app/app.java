@@ -60,9 +60,10 @@ public class app {
 		}
 		
 		
-		appUser.setDay(1);
+
 		//Reset daily values
 		appUser.startup();
+		appUser.save();
 		
 		//Create View and Inject User
 		DashboardFrame dash = new DashboardFrame(appUser);

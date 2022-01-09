@@ -128,4 +128,12 @@ public class User implements Serializable{
 		notifyObservers();
 	}
 	
+	public void addTask() {
+		startup();
+		this.dailyTasks++;
+		this.totalTasks++;
+		save();
+		notifyObservers();
+	}
+	
 }
